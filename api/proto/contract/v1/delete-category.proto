@@ -1,0 +1,13 @@
+syntax = "proto3";
+package v1;
+
+option go_package = "github.com/mephistolie/chefbook-backend-category/api/proto/v1";
+
+message DeleteCategoryRequest {
+  string userId = 1;
+  string categoryId = 2;
+}
+
+message DeleteCategoryResponse {
+  string message = 1;
+}

@@ -1,1 +1,1 @@
-# chefbook-backend-category
+# ChefBook Backend Category Service
