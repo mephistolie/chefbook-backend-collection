@@ -1,9 +1,9 @@
 CREATE TABLE categories
 (
     category_id uuid PRIMARY KEY NOT NULL UNIQUE,
-    user_id     uuid PRIMARY KEY NOT NULL,
+    user_id     uuid             NOT NULL,
     name        text             NOT NULL,
-    emoji       text DEFAULT NULL,
+    emoji       text DEFAULT NULL
 );
 
 CREATE TABLE inbox
