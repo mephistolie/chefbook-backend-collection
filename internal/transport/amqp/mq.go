@@ -12,7 +12,7 @@ import (
 	"k8s.io/utils/strings/slices"
 )
 
-const queueProfiles = "user.profiles"
+const queueProfiles = "category.profiles"
 
 var supportedMsgTypes = []string{
 	auth.MsgTypeProfileDeleted,
