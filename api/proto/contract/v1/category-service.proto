@@ -14,7 +14,7 @@ service CategoryService {
   rpc GetUserCategories(GetUserCategoriesRequest) returns (GetUserCategoriesResponse);
   rpc GetCategoriesMap(GetCategoriesMapRequest) returns (GetCategoriesMapResponse);
   rpc AddCategory(AddCategoryRequest) returns (AddCategoryResponse);
-  rpc GetCategory(GetCategoryRequest) returns (GetCategoryResponse);
+  rpc GetCategory(GetCategoryRequest) returns (Category);
   rpc UpdateCategory(UpdateCategoryRequest) returns (UpdateCategoryResponse);
   rpc DeleteCategory(DeleteCategoryRequest) returns (DeleteCategoryResponse);
 }

@@ -13,7 +13,3 @@ message GetCategoryRequest {
   string userId = 1;
   string categoryId = 2;
 }
-
-message GetCategoryResponse {
-  Category category = 1;
-}

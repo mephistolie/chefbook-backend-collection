@@ -58,6 +58,9 @@ func (s *CategoryServer) AddCategory(_ context.Context, req *api.AddCategoryRequ
 		categoryId = uuid.New()
 	}
 
+	if (len(req.Name)) == 0 {
+		return nil, fail.GrpcInvalidBody
+	}
 	if (len(req.Name)) > 64 {
 		return nil, categoryFail.GrpcNameLength
 	}
@@ -84,7 +87,7 @@ func (s *CategoryServer) AddCategory(_ context.Context, req *api.AddCategoryRequ
 	return &api.AddCategoryResponse{CategoryId: id.String()}, nil
 }
 
-func (s *CategoryServer) GetCategory(_ context.Context, req *api.GetCategoryRequest) (*api.GetCategoryResponse, error) {
+func (s *CategoryServer) GetCategory(_ context.Context, req *api.GetCategoryRequest) (*api.Category, error) {
 	userId, err := uuid.Parse(req.UserId)
 	if err != nil {
 		return nil, fail.GrpcInvalidBody
@@ -104,13 +107,11 @@ func (s *CategoryServer) GetCategory(_ context.Context, req *api.GetCategoryRequ
 		emoji = *category.Emoji
 	}
 
-	res := api.Category{
+	return &api.Category{
 		CategoryId: category.Id.String(),
 		Name:       category.Name,
 		Emoji:      emoji,
-	}
-
-	return &api.GetCategoryResponse{Category: &res}, nil
+	}, nil
 }
 
 func (s *CategoryServer) UpdateCategory(_ context.Context, req *api.UpdateCategoryRequest) (*api.UpdateCategoryResponse, error) {
@@ -123,6 +124,9 @@ func (s *CategoryServer) UpdateCategory(_ context.Context, req *api.UpdateCatego
 		return nil, fail.GrpcInvalidBody
 	}
 
+	if (len(req.Name)) == 0 {
+		return nil, fail.GrpcInvalidBody
+	}
 	if (len(req.Name)) > 64 {
 		return nil, categoryFail.GrpcNameLength
 	}

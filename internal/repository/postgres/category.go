@@ -89,7 +89,7 @@ func (r *Repository) GetCategory(categoryId uuid.UUID) (entity.Category, uuid.UU
 		WHERE category_id=$1
 	`, categoriesTable)
 
-	row := r.db.QueryRow(query)
+	row := r.db.QueryRow(query, categoryId)
 	if err := row.Scan(&category.Id, &userId, &category.Name, &category.Emoji); err != nil {
 		log.Errorf("unable to get category %s: %s", category, err)
 		return entity.Category{}, uuid.UUID{}, fail.GrpcNotFound
