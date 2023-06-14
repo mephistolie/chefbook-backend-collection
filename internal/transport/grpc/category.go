@@ -84,6 +84,35 @@ func (s *CategoryServer) AddCategory(_ context.Context, req *api.AddCategoryRequ
 	return &api.AddCategoryResponse{CategoryId: id.String()}, nil
 }
 
+func (s *CategoryServer) GetCategory(_ context.Context, req *api.GetCategoryRequest) (*api.GetCategoryResponse, error) {
+	userId, err := uuid.Parse(req.UserId)
+	if err != nil {
+		return nil, fail.GrpcInvalidBody
+	}
+	categoryId, err := uuid.Parse(req.CategoryId)
+	if err != nil {
+		return nil, fail.GrpcInvalidBody
+	}
+
+	category, err := s.service.GetCategory(categoryId, userId)
+	if err != nil {
+		return nil, err
+	}
+
+	emoji := ""
+	if category.Emoji != nil {
+		emoji = *category.Emoji
+	}
+
+	res := api.Category{
+		CategoryId: category.Id.String(),
+		Name:       category.Name,
+		Emoji:      emoji,
+	}
+
+	return &api.GetCategoryResponse{Category: &res}, nil
+}
+
 func (s *CategoryServer) UpdateCategory(_ context.Context, req *api.UpdateCategoryRequest) (*api.UpdateCategoryResponse, error) {
 	userId, err := uuid.Parse(req.UserId)
 	if err != nil {

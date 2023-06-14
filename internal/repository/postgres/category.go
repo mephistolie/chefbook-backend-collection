@@ -79,6 +79,25 @@ func (r *Repository) AddCategory(category entity.Category, userId uuid.UUID) (uu
 	return category.Id, nil
 }
 
+func (r *Repository) GetCategory(categoryId uuid.UUID) (entity.Category, uuid.UUID, error) {
+	var category entity.Category
+	var userId uuid.UUID
+
+	query := fmt.Sprintf(`
+		SELECT category_id, user_id, name, emoji
+		FROM %s
+		WHERE category_id=$1
+	`, categoriesTable)
+
+	row := r.db.QueryRow(query)
+	if err := row.Scan(&category.Id, &userId, &category.Name, &category.Emoji); err != nil {
+		log.Errorf("unable to get category %s: %s", category, err)
+		return entity.Category{}, uuid.UUID{}, fail.GrpcNotFound
+	}
+
+	return category, userId, nil
+}
+
 func (r *Repository) UpdateCategory(category entity.Category, userId uuid.UUID) error {
 	query := fmt.Sprintf(`
 		UPDATE %s

@@ -6,6 +6,7 @@ option go_package = "github.com/mephistolie/chefbook-backend-category/api/proto/
 import "v1/get-user-categories.proto";
 import "v1/get-categories-map.proto";
 import "v1/add-category.proto";
+import "v1/get-category.proto";
 import "v1/update-category.proto";
 import "v1/delete-category.proto";
 
@@ -13,6 +14,7 @@ service CategoryService {
   rpc GetUserCategories(GetUserCategoriesRequest) returns (GetUserCategoriesResponse);
   rpc GetCategoriesMap(GetCategoriesMapRequest) returns (GetCategoriesMapResponse);
   rpc AddCategory(AddCategoryRequest) returns (AddCategoryResponse);
+  rpc GetCategory(GetCategoryRequest) returns (GetCategoryResponse);
   rpc UpdateCategory(UpdateCategoryRequest) returns (UpdateCategoryResponse);
   rpc DeleteCategory(DeleteCategoryRequest) returns (DeleteCategoryResponse);
 }

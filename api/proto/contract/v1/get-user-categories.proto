@@ -3,11 +3,7 @@ package v1;
 
 option go_package = "github.com/mephistolie/chefbook-backend-category/api/proto/v1";
 
-message Category {
-  string categoryId = 1;
-  string name = 2;
-  string emoji = 3;
-}
+import "v1/get-category.proto";
 
 message GetUserCategoriesRequest {
   string userId = 1;
