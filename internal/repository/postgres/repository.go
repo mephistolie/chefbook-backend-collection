@@ -13,9 +13,8 @@ import (
 )
 
 const (
-	categoriesTable    = "categories"
-	avatarUploadsTable = "avatar_uploads"
-	inboxTable         = "inbox"
+	categoriesTable = "categories"
+	inboxTable      = "inbox"
 
 	errUniqueViolation = "23505"
 )

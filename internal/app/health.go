@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/jmoiron/sqlx"
-	userpb "github.com/mephistolie/chefbook-backend-category/api/proto/implementation/v1"
+	categorypb "github.com/mephistolie/chefbook-backend-category/api/proto/implementation/v1"
 	"github.com/mephistolie/chefbook-backend-common/log"
 	"google.golang.org/grpc/health"
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
@@ -23,5 +23,5 @@ func monitorHealthChecking(db *sqlx.DB, healthServer *health.Server) {
 
 func setHealthStatus(healthServer *health.Server, status healthpb.HealthCheckResponse_ServingStatus) {
 	healthServer.SetServingStatus("", status)
-	healthServer.SetServingStatus(userpb.CategoryService_ServiceDesc.ServiceName, status)
+	healthServer.SetServingStatus(categorypb.CategoryService_ServiceDesc.ServiceName, status)
 }

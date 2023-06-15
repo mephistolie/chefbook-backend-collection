@@ -16,7 +16,7 @@ config:
   postgres:
     host: ""
     port: 5432
-    dbName: chefbook-users
+    dbName: chefbook-categories
 
   rabbitmq:
     name: ""

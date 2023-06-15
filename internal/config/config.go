@@ -42,7 +42,7 @@ func (c Config) Validate() error {
 }
 
 func (c Config) Print() {
-	log.Infof("USER SERVICE CONFIGURATION\n"+
+	log.Infof("CATEGORY SERVICE CONFIGURATION\n"+
 		"Environment: %v\n"+
 		"Port: %v\n"+
 		"Logs path: %v\n\n"+

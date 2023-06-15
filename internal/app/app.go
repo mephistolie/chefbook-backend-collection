@@ -58,11 +58,11 @@ func Run(cfg *config.Config) {
 	)
 
 	healthServer := health.NewServer()
-	userServer := category.NewServer(*categoryService)
+	categoryServer := category.NewServer(*categoryService)
 
 	go monitorHealthChecking(db, healthServer)
 
-	categorypb.RegisterCategoryServiceServer(grpcServer, userServer)
+	categorypb.RegisterCategoryServiceServer(grpcServer, categoryServer)
 	healthpb.RegisterHealthServer(grpcServer, healthServer)
 
 	go func() {

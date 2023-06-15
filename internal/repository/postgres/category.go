@@ -42,7 +42,7 @@ func (r *Repository) GetCategoriesMap(categoryIds []uuid.UUID, userId uuid.UUID)
 	query := fmt.Sprintf(`
 		SELECT category_id, name, emoji
 		FROM %s
-		WHERE user_id=? AND category_id IN (?)
+		WHERE user_id=$1 AND category_id=ANY($2)
 	`, categoriesTable)
 
 	rows, err := r.db.Query(query, userId, categoryIds)
