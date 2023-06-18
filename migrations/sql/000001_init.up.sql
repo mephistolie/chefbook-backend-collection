@@ -2,8 +2,8 @@ CREATE TABLE categories
 (
     category_id uuid PRIMARY KEY NOT NULL,
     user_id     uuid             NOT NULL,
-    name        text             NOT NULL,
-    emoji       text DEFAULT NULL
+    name        VARCHAR(64)      NOT NULL,
+    emoji       VARCHAR(30) DEFAULT NULL
 );
 
 CREATE INDEX categories_user_id_key ON categories (user_id);
