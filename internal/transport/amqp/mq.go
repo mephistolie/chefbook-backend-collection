@@ -66,7 +66,7 @@ func (s *Server) handleDelivery(delivery amqp.Delivery) amqp.Action {
 	}
 
 	if !slices.Contains(supportedMsgTypes, delivery.Type) {
-		log.Warn("unsupported message type: ", delivery.Type)
+		log.Info("unsupported message type: ", delivery.Type)
 		return amqp.NackDiscard
 	}
 

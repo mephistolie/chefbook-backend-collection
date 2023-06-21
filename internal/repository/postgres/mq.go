@@ -23,7 +23,7 @@ func (r *Repository) ImportFirebaseCategories(categories []entity.Category, user
 	if err == nil {
 		go func() {
 			for _, category := range categories {
-				_, _ = r.AddCategory(category, userId)
+				_, _ = r.CreateCategory(category, userId)
 			}
 		}()
 	}

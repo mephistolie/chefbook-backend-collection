@@ -4,8 +4,6 @@ import (
 	"context"
 	"github.com/google/uuid"
 	api "github.com/mephistolie/chefbook-backend-category/api/proto/implementation/v1"
-	"github.com/mephistolie/chefbook-backend-category/internal/entity"
-	categoryFail "github.com/mephistolie/chefbook-backend-category/internal/entity/fail"
 	"github.com/mephistolie/chefbook-backend-category/internal/transport/grpc/dto"
 	"github.com/mephistolie/chefbook-backend-common/responses/fail"
 )
@@ -45,46 +43,23 @@ func (s *CategoryServer) GetCategoriesMap(_ context.Context, req *api.GetCategor
 	return dto.NewGetCategoriesMapResponse(categories), nil
 }
 
-func (s *CategoryServer) AddCategory(_ context.Context, req *api.AddCategoryRequest) (*api.AddCategoryResponse, error) {
+func (s *CategoryServer) CreateCategory(_ context.Context, req *api.CreateCategoryRequest) (*api.CreateCategoryResponse, error) {
 	userId, err := uuid.Parse(req.UserId)
 	if err != nil {
 		return nil, fail.GrpcInvalidBody
 	}
 
-	var categoryId uuid.UUID
-	if parsedId, err := uuid.Parse(req.CategoryId); err == nil {
-		categoryId = parsedId
-	} else {
-		categoryId = uuid.New()
-	}
-
-	if (len(req.Name)) == 0 {
-		return nil, fail.GrpcInvalidBody
-	}
-	if (len(req.Name)) > 64 {
-		return nil, categoryFail.GrpcNameLength
-	}
-	if (len(req.Emoji)) > 64 {
-		return nil, categoryFail.GrpcEmojiLength
-	}
-
-	var emoji *string
-	if len(req.Emoji) > 0 {
-		emoji = &req.Emoji
-	}
-
-	category := entity.Category{
-		Id:    categoryId,
-		Name:  req.Name,
-		Emoji: emoji,
-	}
-
-	id, err := s.service.AddCategory(category, userId)
+	input, err := dto.ParseCreateCategoryRequest(req)
 	if err != nil {
 		return nil, err
 	}
 
-	return &api.AddCategoryResponse{CategoryId: id.String()}, nil
+	id, err := s.service.CreateCategory(input, userId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &api.CreateCategoryResponse{CategoryId: id.String()}, nil
 }
 
 func (s *CategoryServer) GetCategory(_ context.Context, req *api.GetCategoryRequest) (*api.Category, error) {
@@ -102,15 +77,10 @@ func (s *CategoryServer) GetCategory(_ context.Context, req *api.GetCategoryRequ
 		return nil, err
 	}
 
-	emoji := ""
-	if category.Emoji != nil {
-		emoji = *category.Emoji
-	}
-
 	return &api.Category{
 		CategoryId: category.Id.String(),
 		Name:       category.Name,
-		Emoji:      emoji,
+		Emoji:      category.Emoji,
 	}, nil
 }
 
@@ -119,33 +89,13 @@ func (s *CategoryServer) UpdateCategory(_ context.Context, req *api.UpdateCatego
 	if err != nil {
 		return nil, fail.GrpcInvalidBody
 	}
-	categoryId, err := uuid.Parse(req.CategoryId)
+
+	input, err := dto.ParseUpdateCategoryRequest(req)
 	if err != nil {
-		return nil, fail.GrpcInvalidBody
+		return nil, err
 	}
 
-	if (len(req.Name)) == 0 {
-		return nil, fail.GrpcInvalidBody
-	}
-	if (len(req.Name)) > 64 {
-		return nil, categoryFail.GrpcNameLength
-	}
-	if (len(req.Emoji)) > 64 {
-		return nil, categoryFail.GrpcEmojiLength
-	}
-
-	var emoji *string
-	if len(req.Emoji) > 0 {
-		emoji = &req.Emoji
-	}
-
-	category := entity.Category{
-		Id:    categoryId,
-		Name:  req.Name,
-		Emoji: emoji,
-	}
-
-	if err = s.service.UpdateCategory(category, userId); err != nil {
+	if err = s.service.UpdateCategory(input, userId); err != nil {
 		return nil, err
 	}
 

@@ -14,8 +14,8 @@ func (s *Service) GetCategoriesMap(categoryIds []uuid.UUID, userId uuid.UUID) ma
 	return s.repo.GetCategoriesMap(categoryIds, userId)
 }
 
-func (s *Service) AddCategory(category entity.Category, userId uuid.UUID) (uuid.UUID, error) {
-	return s.repo.AddCategory(category, userId)
+func (s *Service) CreateCategory(category entity.Category, userId uuid.UUID) (uuid.UUID, error) {
+	return s.repo.CreateCategory(category, userId)
 }
 
 func (s *Service) GetCategory(categoryId uuid.UUID, userId uuid.UUID) (entity.Category, error) {
@@ -31,7 +31,14 @@ func (s *Service) GetCategory(categoryId uuid.UUID, userId uuid.UUID) (entity.Ca
 	return category, nil
 }
 func (s *Service) UpdateCategory(category entity.Category, userId uuid.UUID) error {
-	return s.repo.UpdateCategory(category, userId)
+	_, ownerId, err := s.repo.GetCategory(category.Id)
+	if err != nil {
+		return err
+	}
+	if ownerId != userId {
+		return fail.GrpcAccessDenied
+	}
+	return s.repo.UpdateCategory(category)
 }
 
 func (s *Service) DeleteCategory(categoryId, userId uuid.UUID) error {

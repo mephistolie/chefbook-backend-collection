@@ -2,5 +2,5 @@ apiVersion: v2
 name: chefbook-backend-category-service
 description: ChefBook Category Microservice Helm chart
 type: application
-version: 1.0.2
-appVersion: "1.0.2"
+version: 1.1.0
+appVersion: "1.1.0"

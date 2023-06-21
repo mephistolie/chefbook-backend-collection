@@ -7,7 +7,7 @@ message UpdateCategoryRequest {
   string userId = 1;
   string categoryId = 2;
   string name = 3;
-  string emoji = 4;
+  optional string emoji = 4;
 }
 
 message UpdateCategoryResponse {

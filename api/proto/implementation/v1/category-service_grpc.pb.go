@@ -21,7 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	CategoryService_GetUserCategories_FullMethodName = "/v1.CategoryService/GetUserCategories"
 	CategoryService_GetCategoriesMap_FullMethodName  = "/v1.CategoryService/GetCategoriesMap"
-	CategoryService_AddCategory_FullMethodName       = "/v1.CategoryService/AddCategory"
+	CategoryService_CreateCategory_FullMethodName    = "/v1.CategoryService/CreateCategory"
 	CategoryService_GetCategory_FullMethodName       = "/v1.CategoryService/GetCategory"
 	CategoryService_UpdateCategory_FullMethodName    = "/v1.CategoryService/UpdateCategory"
 	CategoryService_DeleteCategory_FullMethodName    = "/v1.CategoryService/DeleteCategory"
@@ -33,7 +33,7 @@ const (
 type CategoryServiceClient interface {
 	GetUserCategories(ctx context.Context, in *GetUserCategoriesRequest, opts ...grpc.CallOption) (*GetUserCategoriesResponse, error)
 	GetCategoriesMap(ctx context.Context, in *GetCategoriesMapRequest, opts ...grpc.CallOption) (*GetCategoriesMapResponse, error)
-	AddCategory(ctx context.Context, in *AddCategoryRequest, opts ...grpc.CallOption) (*AddCategoryResponse, error)
+	CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error)
 	GetCategory(ctx context.Context, in *GetCategoryRequest, opts ...grpc.CallOption) (*Category, error)
 	UpdateCategory(ctx context.Context, in *UpdateCategoryRequest, opts ...grpc.CallOption) (*UpdateCategoryResponse, error)
 	DeleteCategory(ctx context.Context, in *DeleteCategoryRequest, opts ...grpc.CallOption) (*DeleteCategoryResponse, error)
@@ -65,9 +65,9 @@ func (c *categoryServiceClient) GetCategoriesMap(ctx context.Context, in *GetCat
 	return out, nil
 }
 
-func (c *categoryServiceClient) AddCategory(ctx context.Context, in *AddCategoryRequest, opts ...grpc.CallOption) (*AddCategoryResponse, error) {
-	out := new(AddCategoryResponse)
-	err := c.cc.Invoke(ctx, CategoryService_AddCategory_FullMethodName, in, out, opts...)
+func (c *categoryServiceClient) CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error) {
+	out := new(CreateCategoryResponse)
+	err := c.cc.Invoke(ctx, CategoryService_CreateCategory_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +107,7 @@ func (c *categoryServiceClient) DeleteCategory(ctx context.Context, in *DeleteCa
 type CategoryServiceServer interface {
 	GetUserCategories(context.Context, *GetUserCategoriesRequest) (*GetUserCategoriesResponse, error)
 	GetCategoriesMap(context.Context, *GetCategoriesMapRequest) (*GetCategoriesMapResponse, error)
-	AddCategory(context.Context, *AddCategoryRequest) (*AddCategoryResponse, error)
+	CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error)
 	GetCategory(context.Context, *GetCategoryRequest) (*Category, error)
 	UpdateCategory(context.Context, *UpdateCategoryRequest) (*UpdateCategoryResponse, error)
 	DeleteCategory(context.Context, *DeleteCategoryRequest) (*DeleteCategoryResponse, error)
@@ -124,8 +124,8 @@ func (UnimplementedCategoryServiceServer) GetUserCategories(context.Context, *Ge
 func (UnimplementedCategoryServiceServer) GetCategoriesMap(context.Context, *GetCategoriesMapRequest) (*GetCategoriesMapResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCategoriesMap not implemented")
 }
-func (UnimplementedCategoryServiceServer) AddCategory(context.Context, *AddCategoryRequest) (*AddCategoryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddCategory not implemented")
+func (UnimplementedCategoryServiceServer) CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
 }
 func (UnimplementedCategoryServiceServer) GetCategory(context.Context, *GetCategoryRequest) (*Category, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCategory not implemented")
@@ -185,20 +185,20 @@ func _CategoryService_GetCategoriesMap_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CategoryService_AddCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddCategoryRequest)
+func _CategoryService_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCategoryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CategoryServiceServer).AddCategory(ctx, in)
+		return srv.(CategoryServiceServer).CreateCategory(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CategoryService_AddCategory_FullMethodName,
+		FullMethod: CategoryService_CreateCategory_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoryServiceServer).AddCategory(ctx, req.(*AddCategoryRequest))
+		return srv.(CategoryServiceServer).CreateCategory(ctx, req.(*CreateCategoryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -273,8 +273,8 @@ var CategoryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CategoryService_GetCategoriesMap_Handler,
 		},
 		{
-			MethodName: "AddCategory",
-			Handler:    _CategoryService_AddCategory_Handler,
+			MethodName: "CreateCategory",
+			Handler:    _CategoryService_CreateCategory_Handler,
 		},
 		{
 			MethodName: "GetCategory",

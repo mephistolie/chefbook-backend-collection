@@ -64,7 +64,7 @@ func (r *Repository) GetCategoriesMap(categoryIds []uuid.UUID, userId uuid.UUID)
 	return categories
 }
 
-func (r *Repository) AddCategory(category entity.Category, userId uuid.UUID) (uuid.UUID, error) {
+func (r *Repository) CreateCategory(category entity.Category, userId uuid.UUID) (uuid.UUID, error) {
 	query := fmt.Sprintf(`
 		INSERT INTO %s (category_id, user_id, name, emoji)
 		VALUES ($1, $2, $3, $4)
@@ -98,14 +98,14 @@ func (r *Repository) GetCategory(categoryId uuid.UUID) (entity.Category, uuid.UU
 	return category, userId, nil
 }
 
-func (r *Repository) UpdateCategory(category entity.Category, userId uuid.UUID) error {
+func (r *Repository) UpdateCategory(category entity.Category) error {
 	query := fmt.Sprintf(`
 		UPDATE %s
 		SET name=$1, emoji=$2
-		WHERE category_id=$3 AND user_id=$4
+		WHERE category_id=$3
 	`, categoriesTable)
 
-	if _, err := r.db.Exec(query, category.Name, category.Emoji, category.Id, userId); err != nil {
+	if _, err := r.db.Exec(query, category.Name, category.Emoji, category.Id); err != nil {
 		log.Errorf("unable to update category %s: %s", category.Id, err)
 		return fail.GrpcUnknown
 	}
