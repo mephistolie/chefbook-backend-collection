@@ -28,8 +28,8 @@ func ParseCreateCategoryRequest(req *api.CreateCategoryRequest) (entity.Category
 		categoryId = &id
 	}
 
-	if len(req.Name) > maxCategoryNameLength {
-		req.Name = req.Name[0:maxCategoryNameLength]
+	if len([]rune(req.Name)) > maxCategoryNameLength {
+		req.Name = string([]rune(req.Name)[0:maxCategoryNameLength])
 	}
 	if req.Emoji != nil && len(*req.Emoji) > maxCategoryEmojiLength {
 		emoji := (*req.Emoji)[0:maxCategoryEmojiLength]
@@ -53,8 +53,8 @@ func ParseUpdateCategoryRequest(req *api.UpdateCategoryRequest) (entity.Category
 		return entity.Category{}, fail.GrpcInvalidBody
 	}
 
-	if len(req.Name) > maxCategoryNameLength {
-		req.Name = req.Name[0:maxCategoryNameLength]
+	if len([]rune(req.Name)) > maxCategoryNameLength {
+		req.Name = string([]rune(req.Name)[0:maxCategoryNameLength])
 	}
 	if req.Emoji != nil && len(*req.Emoji) > maxCategoryEmojiLength {
 		emoji := (*req.Emoji)[0:maxCategoryEmojiLength]
