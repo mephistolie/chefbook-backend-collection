@@ -14,3 +14,5 @@ require (
 	golang.org/x/text v0.8.0 // indirect
 	google.golang.org/genproto v0.0.0-20230320184635-7606e756e683 // indirect
 )
+
+replace github.com/mephistolie/chefbook-backend-category/api v1.1.0 => github.com/mephistolie/chefbook-backend-collection/api v1.1.0
