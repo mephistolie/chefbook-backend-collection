@@ -1,0 +1,17 @@
+syntax = "proto3";
+package v1;
+
+option go_package = "github.com/mephistolie/chefbook-backend-collection/api/proto/v1";
+
+message CreateCollectionRequest {
+  string userId = 1;
+  optional string collectionId = 2;
+  repeated string coauthors = 3;
+  string name = 4;
+  string visibility = 5;
+  optional string emoji = 6;
+}
+
+message CreateCollectionResponse {
+  string collectionId = 1;
+}

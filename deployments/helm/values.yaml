@@ -2,7 +2,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  container: chefbook-backend-category-service
+  container: chefbook-backend-collection-service
   registry: ""
   pullPolicy: IfNotPresent
   tag: ""
@@ -16,7 +16,7 @@ config:
   postgres:
     host: ""
     port: 5432
-    dbName: chefbook-categories
+    dbName: chefbook-collections
 
   rabbitmq:
     name: ""

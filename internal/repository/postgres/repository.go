@@ -7,14 +7,16 @@ import (
 	"github.com/jackc/pgx/v5/pgconn"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/jmoiron/sqlx"
-	"github.com/mephistolie/chefbook-backend-category/internal/config"
+	"github.com/mephistolie/chefbook-backend-collection/internal/config"
 	"github.com/mephistolie/chefbook-backend-common/log"
 	"github.com/mephistolie/chefbook-backend-common/responses/fail"
 )
 
 const (
-	categoriesTable = "categories"
-	inboxTable      = "inbox"
+	collectionsTable        = "collections"
+	collectionsUsersTable   = "collections_users"
+	collectionsRecipesTable = "collections_recipes"
+	inboxTable              = "inbox"
 
 	errUniqueViolation = "23505"
 )

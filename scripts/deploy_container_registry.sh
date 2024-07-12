@@ -5,7 +5,7 @@ fi
 
 # Configuration
 
-app_name=chefbook-backend-category-service
+app_name=chefbook-backend-collection-service
 app_image="$CONTAINER_REGISTRY/$app_name"
 migrations_image="$app_image-migrations"
 

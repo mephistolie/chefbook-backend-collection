@@ -1,4 +1,4 @@
-module github.com/mephistolie/chefbook-backend-category/api
+module github.com/mephistolie/chefbook-backend-collection/api
 
 go 1.20
 

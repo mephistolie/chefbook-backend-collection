@@ -1,1 +1,1 @@
-# ChefBook Backend Category Service
+# ChefBook Backend Collection Service

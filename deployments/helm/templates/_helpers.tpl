@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "chefbook-backend-category-service.name" -}}
+{{- define "chefbook-backend-collection-service.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "chefbook-backend-category-service.fullname" -}}
+{{- define "chefbook-backend-collection-service.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "chefbook-backend-category-service.chart" -}}
+{{- define "chefbook-backend-collection-service.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "chefbook-backend-category-service.labels" -}}
-helm.sh/chart: {{ include "chefbook-backend-category-service.chart" . }}
-{{ include "chefbook-backend-category-service.selectorLabels" . }}
+{{- define "chefbook-backend-collection-service.labels" -}}
+helm.sh/chart: {{ include "chefbook-backend-collection-service.chart" . }}
+{{ include "chefbook-backend-collection-service.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -47,16 +47,16 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "chefbook-backend-category-service.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "chefbook-backend-category-service.name" . }}
+{{- define "chefbook-backend-collection-service.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "chefbook-backend-collection-service.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-environment: {{ include "chefbook-backend-category-service.environment" . }}
+environment: {{ include "chefbook-backend-collection-service.environment" . }}
 {{- end }}
 
 {{/*
 Choose Environment
 */}}
-{{- define "chefbook-backend-category-service.environment" -}}
+{{- define "chefbook-backend-collection-service.environment" -}}
 {{- if eq (tpl "{{ .Values.config.develop }}" .) "true" }}
 {{- print "develop" }}
 {{- else }}

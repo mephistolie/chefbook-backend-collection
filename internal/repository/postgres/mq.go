@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/mephistolie/chefbook-backend-category/internal/entity"
+	"github.com/mephistolie/chefbook-backend-collection/internal/entity"
 	"github.com/mephistolie/chefbook-backend-common/log"
 	"github.com/mephistolie/chefbook-backend-common/responses/fail"
 )
 
-func (r *Repository) ImportFirebaseCategories(categories []entity.Category, userId, messageId uuid.UUID) error {
+func (r *Repository) ImportFirebaseCollections(collections []entity.Collection, userId, messageId uuid.UUID) error {
 	tx, err := r.handleMessageIdempotently(messageId)
 	if err != nil {
 		if isUniqueViolationError(err) {
@@ -22,8 +22,8 @@ func (r *Repository) ImportFirebaseCategories(categories []entity.Category, user
 
 	if err == nil {
 		go func() {
-			for _, category := range categories {
-				_, _ = r.CreateCategory(category, userId)
+			for _, collection := range collections {
+				_, _ = r.CreateCollection(collection, userId)
 			}
 		}()
 	}
@@ -44,7 +44,7 @@ func (r *Repository) DeleteUser(userId, messageId uuid.UUID) error {
 	query := fmt.Sprintf(`
 		DELETE FROM %s
 		WHERE user_id=$1
-	`, categoriesTable)
+	`, collectionsTable)
 
 	if _, err := tx.Exec(query, userId); err != nil {
 		log.Errorf("unable to delete user %s: %s", userId, err)

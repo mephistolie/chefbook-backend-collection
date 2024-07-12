@@ -1,3 +1,3 @@
 DROP TABLE inbox;
 
-DROP TABLE categories;
+DROP TABLE collections;

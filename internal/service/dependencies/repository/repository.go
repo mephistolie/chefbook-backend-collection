@@ -2,16 +2,16 @@ package repository
 
 import (
 	"github.com/google/uuid"
-	"github.com/mephistolie/chefbook-backend-category/internal/entity"
+	"github.com/mephistolie/chefbook-backend-collection/internal/entity"
 )
 
-type Category interface {
+type Collection interface {
 	DeleteUser(userId, messageId uuid.UUID) error
 
-	GetUserCategories(userId uuid.UUID) []entity.Category
-	GetCategoriesMap(categoryIds []uuid.UUID, userId uuid.UUID) map[uuid.UUID]entity.Category
-	CreateCategory(category entity.Category, userId uuid.UUID) (uuid.UUID, error)
-	GetCategory(categoryId uuid.UUID) (entity.Category, uuid.UUID, error)
-	UpdateCategory(category entity.Category) error
-	DeleteCategory(categoryId, userId uuid.UUID) error
+	GetUserCollections(userId uuid.UUID) []entity.Collection
+	GetCollectionsMap(collectionIds []uuid.UUID, userId uuid.UUID) map[uuid.UUID]entity.Collection
+	CreateCollection(collection entity.Collection) (uuid.UUID, error)
+	GetCollection(collectionId uuid.UUID) (entity.Collection, error)
+	UpdateCollection(collection entity.Collection) error
+	DeleteCollection(collectionId, userId uuid.UUID) error
 }

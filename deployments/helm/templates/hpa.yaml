@@ -2,15 +2,15 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "chefbook-backend-category-service.fullname" . }}
+  name: {{ include "chefbook-backend-collection-service.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "chefbook-backend-category-service.labels" . | nindent 4 }}
+    {{- include "chefbook-backend-collection-service.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "chefbook-backend-category-service.fullname" . }}
+    name: {{ include "chefbook-backend-collection-service.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

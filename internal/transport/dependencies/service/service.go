@@ -2,24 +2,24 @@ package service
 
 import (
 	"github.com/google/uuid"
-	"github.com/mephistolie/chefbook-backend-category/internal/entity"
-	"github.com/mephistolie/chefbook-backend-category/internal/service/category"
-	"github.com/mephistolie/chefbook-backend-category/internal/service/dependencies/repository"
-	"github.com/mephistolie/chefbook-backend-category/internal/service/mq"
+	"github.com/mephistolie/chefbook-backend-collection/internal/entity"
+	"github.com/mephistolie/chefbook-backend-collection/internal/service/collection"
+	"github.com/mephistolie/chefbook-backend-collection/internal/service/dependencies/repository"
+	"github.com/mephistolie/chefbook-backend-collection/internal/service/mq"
 )
 
 type Service struct {
-	Category
+	Collection
 	MQ
 }
 
-type Category interface {
-	GetUserCategories(userId uuid.UUID) []entity.Category
-	GetCategoriesMap(categoryIds []uuid.UUID, userId uuid.UUID) map[uuid.UUID]entity.Category
-	CreateCategory(category entity.Category, userId uuid.UUID) (uuid.UUID, error)
-	GetCategory(categoryId uuid.UUID, userId uuid.UUID) (entity.Category, error)
-	UpdateCategory(category entity.Category, userId uuid.UUID) error
-	DeleteCategory(categoryId, userId uuid.UUID) error
+type Collection interface {
+	GetUserCollections(userId uuid.UUID) []entity.Collection
+	GetCollectionsMap(collectionIds []uuid.UUID, userId uuid.UUID) map[uuid.UUID]entity.Collection
+	CreateCollection(collection entity.Collection, userId uuid.UUID) (uuid.UUID, error)
+	GetCollection(collectionId uuid.UUID, userId uuid.UUID) (entity.Collection, error)
+	UpdateCollection(collection entity.Collection, userId uuid.UUID) error
+	DeleteCollection(collectionId, userId uuid.UUID) error
 }
 
 type MQ interface {
@@ -27,10 +27,10 @@ type MQ interface {
 }
 
 func New(
-	repo repository.Category,
+	repo repository.Collection,
 ) *Service {
 	return &Service{
-		Category: category.NewService(repo),
-		MQ:       mq.NewService(repo),
+		Collection: collection.NewService(repo),
+		MQ:         mq.NewService(repo),
 	}
 }

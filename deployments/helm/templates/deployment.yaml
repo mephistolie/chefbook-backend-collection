@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chefbook-backend-category-service.fullname" . }}
+  name: {{ include "chefbook-backend-collection-service.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "chefbook-backend-category-service.labels" . | nindent 4 }}
+    {{- include "chefbook-backend-collection-service.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "chefbook-backend-category-service.selectorLabels" . | nindent 6 }}
+      {{- include "chefbook-backend-collection-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,7 +19,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "chefbook-backend-category-service.selectorLabels" . | nindent 8 }}
+        {{- include "chefbook-backend-collection-service.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: ENVIRONMENT
-              value: {{ include "chefbook-backend-category-service.environment" . }}
+              value: {{ include "chefbook-backend-collection-service.environment" . }}
             - name: PORT
               value: {{ .Values.service.port | quote }}
             - name: LOGS_PATH

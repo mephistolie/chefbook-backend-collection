@@ -1,4 +1,4 @@
-module github.com/mephistolie/chefbook-backend-category
+module github.com/mephistolie/chefbook-backend-collection
 
 go 1.20
 
@@ -6,7 +6,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/jackc/pgx/v5 v5.3.1
 	github.com/jmoiron/sqlx v1.3.5
-	github.com/mephistolie/chefbook-backend-auth/api v1.3.8
+	github.com/mephistolie/chefbook-backend-auth/api v1.6.0
 	github.com/mephistolie/chefbook-backend-common/log v0.6.0
 	github.com/mephistolie/chefbook-backend-common/migrate/sql v0.6.0
 	github.com/mephistolie/chefbook-backend-common/responses v0.9.0

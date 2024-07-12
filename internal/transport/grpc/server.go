@@ -1,15 +1,15 @@
 package grpc
 
 import (
-	api "github.com/mephistolie/chefbook-backend-category/api/proto/implementation/v1"
-	"github.com/mephistolie/chefbook-backend-category/internal/transport/dependencies/service"
+	api "github.com/mephistolie/chefbook-backend-collection/api/proto/implementation/v1"
+	"github.com/mephistolie/chefbook-backend-collection/internal/transport/dependencies/service"
 )
 
-type CategoryServer struct {
-	api.UnsafeCategoryServiceServer
+type CollectionServer struct {
+	api.UnsafeCollectionServiceServer
 	service service.Service
 }
 
-func NewServer(service service.Service) *CategoryServer {
-	return &CategoryServer{service: service}
+func NewServer(service service.Service) *CollectionServer {
+	return &CollectionServer{service: service}
 }

@@ -1,15 +1,33 @@
-CREATE TABLE categories
+CREATE TYPE visibility as ENUM ('private', 'link', 'public');
+
+CREATE TABLE collections
 (
-    category_id uuid PRIMARY KEY NOT NULL,
-    user_id     uuid             NOT NULL,
-    name        VARCHAR(64)      NOT NULL,
-    emoji       VARCHAR(30) DEFAULT NULL
+    collection_id UUID PRIMARY KEY NOT NULL,
+    owner_id      UUID             NOT NULL,
+    coauthors     UUID[]           NOT NULL DEFAULT '{}'::uuid[],
+    name          VARCHAR(64)      NOT NULL,
+    visibility    visibility       NOT NULL DEFAULT 'private',
+    emoji         VARCHAR(30)               DEFAULT NULL
 );
 
-CREATE INDEX categories_user_id_key ON categories (user_id);
+CREATE INDEX collections_owner_id_key ON collections (owner_id);
+
+CREATE TABLE collections_users
+(
+    collection_id UUID REFERENCES collections (collection_id) ON DELETE CASCADE NOT NULL,
+    user_id       UUID                                                          NOT NULL,
+    UNIQUE (user_id, collection_id)
+);
+
+CREATE TABLE collections_recipes
+(
+    collection_id UUID REFERENCES collections (collection_id) ON DELETE CASCADE NOT NULL,
+    recipe_id     UUID                                                          NOT NULL,
+    UNIQUE (recipe_id, collection_id)
+);
 
 CREATE TABLE inbox
 (
-    message_id uuid PRIMARY KEY         NOT NULL UNIQUE,
+    message_id UUID PRIMARY KEY         NOT NULL UNIQUE,
     timestamp  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now():: timestamp
 );

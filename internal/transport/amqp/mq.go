@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	auth "github.com/mephistolie/chefbook-backend-auth/api/mq"
-	"github.com/mephistolie/chefbook-backend-category/internal/config"
-	"github.com/mephistolie/chefbook-backend-category/internal/transport/dependencies/service"
+	"github.com/mephistolie/chefbook-backend-collection/internal/config"
+	"github.com/mephistolie/chefbook-backend-collection/internal/transport/dependencies/service"
 	"github.com/mephistolie/chefbook-backend-common/log"
 	amqp "github.com/wagslane/go-rabbitmq"
 	"k8s.io/utils/strings/slices"
 )
 
-const queueProfiles = "category.profiles"
+const queueProfiles = "collection.profiles"
 
 var supportedMsgTypes = []string{
 	auth.MsgTypeProfileDeleted,

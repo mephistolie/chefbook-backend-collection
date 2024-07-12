@@ -1,0 +1,24 @@
+syntax = "proto3";
+package v1;
+
+option go_package = "github.com/mephistolie/chefbook-backend-collection/api/proto/v1";
+
+import "v1/get-user-collections.proto";
+import "v1/get-collections-map.proto";
+import "v1/create-collection.proto";
+import "v1/get-collection.proto";
+import "v1/update-collection.proto";
+import "v1/delete-collection.proto";
+import "v1/get-recipes-collections-map.proto";
+import "v1/set-recipes-collections.proto";
+
+service CollectionService {
+  rpc GetUserCollections(GetUserCollectionsRequest) returns (GetUserCollectionsResponse);
+  rpc GetCollectionsMap(GetCollectionsMapRequest) returns (GetCollectionsMapResponse);
+  rpc CreateCollection(CreateCollectionRequest) returns (CreateCollectionResponse);
+  rpc GetCollection(GetCollectionRequest) returns (Collection);
+  rpc UpdateCollection(UpdateCollectionRequest) returns (UpdateCollectionResponse);
+  rpc DeleteCollection(DeleteCollectionRequest) returns (DeleteCollectionResponse);
+  rpc GetRecipesCollectionsMap(GetRecipesCollectionsMapRequest) returns (GetRecipesCollectionsMapResponse);
+  rpc SetRecipeCollections(SetRecipeCollectionsRequest) returns (SetRecipeCollectionsResponse);
+}
